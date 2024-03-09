@@ -29,13 +29,13 @@ public class ControllerPessoa {
 	private ServicePessoa repository;
 	
 	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping("/pessoa")
+	@GetMapping("/pessoas")
 	public List<Pessoa> getAllPessoas(){
 		return repository.findAll();
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping("/pessoa/{id}")
+	@GetMapping("/pessoas/{id}")
     public ResponseEntity<Pessoa> getPessoaById(@PathVariable Long id){
         Optional<Pessoa> pessoaOptional = repository.findById(id);
 
@@ -43,13 +43,13 @@ public class ControllerPessoa {
     }
 	
 	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping("/pessoa")
+	@PostMapping("/pessoas")
 	public Pessoa addPessoa(@RequestBody Pessoa pessoa) {
 		return repository.save(pessoa);
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
-	@DeleteMapping("/pessoa/{id}")
+	@DeleteMapping("/pessoas/{id}")
 	public ResponseEntity<String> deletePessoaById(@PathVariable Long id) {
         // verifica se a pessoa existe antes de tentar deletar
         if (repository.existsById(id)) {
@@ -61,7 +61,7 @@ public class ControllerPessoa {
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
-	@PutMapping("pessoa/{id}")
+	@PutMapping("pessoas/{id}")
 	public String put(@PathVariable Long id, @RequestBody Pessoa pessoaAtualizada) {
 	    Optional<Pessoa> optionalPessoa = repository.findById(id);
 
