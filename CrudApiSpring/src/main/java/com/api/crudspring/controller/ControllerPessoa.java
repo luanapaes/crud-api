@@ -54,7 +54,7 @@ public class ControllerPessoa {
         // verifica se a pessoa existe antes de tentar deletar
         if (repository.existsById(id)) {
             repository.deleteById(id);
-            return ResponseEntity.ok("Pessoa deletada com sucesso");
+            return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
         }
