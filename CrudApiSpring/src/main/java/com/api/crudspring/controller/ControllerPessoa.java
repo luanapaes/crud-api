@@ -60,9 +60,37 @@ public class ControllerPessoa {
         }
 	}
 	
+//	@CrossOrigin(origins = "http://localhost:4200")
+//	@PutMapping("pessoas/{id}")
+//	public String put(@PathVariable Long id, @RequestBody Pessoa pessoaAtualizada) {
+//	    Optional<Pessoa> optionalPessoa = repository.findById(id);
+//
+//	    if (optionalPessoa.isPresent()) {
+//	        Pessoa pessoa = optionalPessoa.get();
+//
+//	        if (StringUtils.isNotBlank(pessoaAtualizada.getNome())) {
+//	            pessoa.setNome(pessoaAtualizada.getNome());
+//	        }
+//
+//	        if (StringUtils.isNotBlank(pessoaAtualizada.getSobrenome())) {
+//	            pessoa.setSobrenome(pessoaAtualizada.getSobrenome());
+//	        }
+//
+//	        if (pessoaAtualizada.getIdade() != 0) {
+//	            pessoa.setIdade(pessoaAtualizada.getIdade());
+//	        }
+//
+//	        Pessoa pessoaAtualizadaNoBanco = repository.save(pessoa);
+//	        return put.ok(pessoaAtualizadaNoBanco);
+//	    }
+//
+//	    return "Usuário não encontrado.";
+//	}
+	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PutMapping("pessoas/{id}")
-	public String put(@PathVariable Long id, @RequestBody Pessoa pessoaAtualizada) {
+	public ResponseEntity<Pessoa> put(@PathVariable Long id, @RequestBody Pessoa pessoaAtualizada) {
+
 	    Optional<Pessoa> optionalPessoa = repository.findById(id);
 
 	    if (optionalPessoa.isPresent()) {
@@ -80,10 +108,12 @@ public class ControllerPessoa {
 	            pessoa.setIdade(pessoaAtualizada.getIdade());
 	        }
 
-	        repository.save(pessoa);
-	        return "Usuário atualizado com sucesso!";
+	        Pessoa pessoaAtualizadaNoBanco = repository.save(pessoa);
+	        return ResponseEntity.ok(pessoaAtualizadaNoBanco);
 	    }
 
-	    return "Usuário não encontrado.";
+	    return ResponseEntity.notFound().build();
 	}
+
+	
 }
